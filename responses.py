@@ -9,6 +9,7 @@ GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 BOT_USR = os.getenv("BOT_USERNAME")
 
 # Inisialisai Klien Gemini untuk fungsi get_gemini_respone
+print(f"DEBUG: GEMINI_API_KEY is loaded: {bool(GEMINI_API_KEY)}")
 client = genai.Client(api_key=GEMINI_API_KEY)
 
 
@@ -49,7 +50,7 @@ async def get_gemini_respone(prompt: str) -> str:
 # Fungsi untuk Respon Teks (Pakai keyword dan gemini)
 async def handle_respone(text: str) -> str:
     """Menentukan apakah merespons dengan keyword kaku atau dengan Gemini."""
-    processed: str = text.lower().strip
+    processed: str = text.lower().strip()
 
     # --- 1. Aturan Prioritas (Pesan Kunci) ---
     if 'i love you' in processed:
@@ -67,6 +68,7 @@ async def handle_respone(text: str) -> str:
 # Fungsi Utama Penanganan Pesan
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """Menerima pesna dari user dan membalasnya"""
+    # Cek tipe variabel global yang digunakan di sini:
     message_type: str = update.message.chat.type
     text: str = update.message.text
     response: str

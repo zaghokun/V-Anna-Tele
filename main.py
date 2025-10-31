@@ -12,6 +12,7 @@ BOT_USR: Final = os.getenv("BOT_USERNAME")
 # Function from another file
 from commands import start_command, help_command, custom_command
 from responses import handle_message
+from responses import handle_photo
 
 # Debugging Tools
 
@@ -35,6 +36,7 @@ if __name__ == '__main__':
     # Messages
     app.add_handler(MessageHandler(filters.TEXT, handle_message))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
+    app.add_handler(MessageHandler(filters.PHOTO, handle_photo))
 
     # Errors 
     app.add_error_handler(error)
